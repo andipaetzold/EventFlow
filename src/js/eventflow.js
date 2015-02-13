@@ -36,4 +36,14 @@ $(function()
 
         $("div#feed").prepend(item);
     });
+
+    // post event - text
+    $("#post-text form").submit(function()
+    {
+        var textBox = $("input[type=text]", this);
+        ref.child("feed").push({text: textBox.val(), type: "text"});
+        textBox.val("");
+
+        return false;
+    });
 });
