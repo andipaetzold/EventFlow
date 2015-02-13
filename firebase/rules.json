@@ -1,0 +1,12 @@
+{
+    "rules": {
+        "options": {
+          ".read": true,
+          ".write": false
+        },
+        "feed": {
+          ".read": true,
+          ".write": true
+        }
+    }
+}

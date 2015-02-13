@@ -1,0 +1,9 @@
+{
+    "options": {
+        "title": "Example project",
+        "description": "Example description",
+        "keywords": "",
+        "author": "Example author"
+    },
+    "feed": false
+}
