@@ -6,7 +6,16 @@
         },
         "feed": {
           ".read": true,
-          ".write": true
+          ".write": true,
+
+          "$item": {
+            "data": {
+              ".validate": "newData.isString() && newData.val().length > 0"
+            },
+            "type": {
+              ".validate": "newData.val() == 'image' || newData.val() == 'text'"
+            }
+          }
         }
     }
 }

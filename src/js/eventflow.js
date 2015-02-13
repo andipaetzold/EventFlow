@@ -27,10 +27,10 @@ $(function()
         switch(data.type)
         {
             case "image":
-                $("<img>", {alt: "image" + id, src: data.src}).appendTo(item);
+                $("<img>", {alt: "image" + id, src: data.data}).appendTo(item);
                 break;
             case "text":
-                $("<p></p>").text(data.text).appendTo(item);
+                $("<p></p>").text(data.data).appendTo(item);
                 break;
         }
 
@@ -41,7 +41,7 @@ $(function()
     $("#post-text form").submit(function()
     {
         var textBox = $("input[type=text]", this);
-        ref.child("feed").push({text: textBox.val(), type: "text"});
+        ref.child("feed").push({data: textBox.val(), type: "text"});
         textBox.val("");
 
         return false;
