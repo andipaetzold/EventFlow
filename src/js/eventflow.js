@@ -41,7 +41,7 @@ $(function()
     $("#post-text form").submit(function()
     {
         var textBox = $("input[type=text]", this);
-        ref.child("feed").push({data: textBox.val(), type: "text"});
+        ref.child("feed").push({data: textBox.val(), type: "text", timestamp: Firebase.ServerValue.TIMESTAMP});
         textBox.val("");
 
         return false;
