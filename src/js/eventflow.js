@@ -16,4 +16,24 @@ $(function()
     {
         console.error(e.code);
     });
+
+    // load feed
+    ref.child("feed").on("child_added", function(snapshot, prev)
+    {
+        id   = snapshot.key();
+        data = snapshot.val();
+
+        item = $("<div></div>");
+        switch(data.type)
+        {
+            case "image":
+                $("<img>", {alt: "image" + id, src: data.src}).appendTo(item);
+                break;
+            case "text":
+                $("<p></p>").text(data.text).appendTo(item);
+                break;
+        }
+
+        $("div#feed").prepend(item);
+    });
 });
