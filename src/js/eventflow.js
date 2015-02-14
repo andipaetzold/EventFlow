@@ -1,9 +1,8 @@
 // config
-var UPLOADCARE_PUBLIC_KEY = "8b5b4f0679e1d28fcb7e";
 var ref = new Firebase("https://scorching-fire-2873.firebaseio.com");
 
 // feed
-var feed = (function($, uc, undefined)
+var feed = (function($, undefined)
 {
     var options = {
         feedRef: null,
@@ -43,23 +42,13 @@ var feed = (function($, uc, undefined)
     };
 
     // push - image
-    var pushImage = function(file, callbackPushed, callbackUploaded, callbackProgress)
+    var pushImage = function(file, callbackPushed)
     {
-        var file = uc.fileFrom("object", file);
-        file.done(function(file)
-        {
-            if (file.isImage)
-            {
-                push(file.originalUrl, "image", callbackPushed);
-            }
-
-            // callback
-            if (callbackUploaded) callbackUploaded(file);
-        }).progress(function(upload)
-        {
-            // callback
-            if (callbackProgress) callbackProgress(upload);
-        });
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            push(reader.result, "image", callbackPushed);
+        }
+        reader.readAsDataURL(file);
     };
 
     // update feed
@@ -101,7 +90,7 @@ var feed = (function($, uc, undefined)
         pushText:   pushText,
         pushImage:  pushImage
     };
-})(jQuery, uploadcare);
+})(jQuery);
 
 // on ready
 $(function()
