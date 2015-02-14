@@ -7,7 +7,10 @@ var feed = (function($, uc, undefined)
 {
     var options = {
         feedRef: null,
-        feedContainer: null
+        feedContainer: null,
+
+        // callbacks
+        childAdded: null
     };
 
     // config
@@ -19,36 +22,43 @@ var feed = (function($, uc, undefined)
     };
 
     // push
-    var push = function(data, type)
+    var push = function(data, type, callback)
     {
         if (options.feedRef != null)
         {
-            options.feedRef.push({data: data, type: type, timestamp: Firebase.ServerValue.TIMESTAMP});
+            options.feedRef.push({data: data, type: type, timestamp: Firebase.ServerValue.TIMESTAMP}, function(e)
+            {
+                if (!e && callback) callback();
+            });
         }
     };
 
     // push - text
-    var pushText = function(text)
+    var pushText = function(text, callback)
     {
         if (text.length > 0)
         {
-            push(text, "text");
+            push(text, "text", callback);
         }
     };
 
     // push - image
-    var pushImage = function(file)
+    var pushImage = function(file, callbackPushed, callbackUploaded, callbackProgress)
     {
         var file = uc.fileFrom("object", file);
         file.done(function(file)
         {
             if (file.isImage)
             {
-                push(file.originalUrl, "image");
+                push(file.originalUrl, "image", callbackPushed);
             }
+
+            // callback
+            if (callbackUploaded(file));
         }).progress(function(upload)
         {
-            console.log(upload.progress);
+            // callback
+            if (callbackProgress) callbackProgress(upload);
         });
     };
 
@@ -70,6 +80,9 @@ var feed = (function($, uc, undefined)
         }
 
         options.feedContainer.prepend(item);
+
+        // callback
+        if (options.childAdded) options.childAdded(item, id, data);
     };
 
 
