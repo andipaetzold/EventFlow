@@ -182,7 +182,7 @@ $(function()
     }
 
     var video = $("#post-camera video").hide();
-    $("#post-camera button").click(function()
+    $("#post-camera input[type=button]").click(function()
     {
         var that = this;
         navigator.getUserMedia({video: true, audio: false}, function (stream)

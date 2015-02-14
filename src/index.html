@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 <body>
-    <div id="auth">
+    <div id="auth" class="box">
         <form>
             <input type="text" placeholder="E-Mail" value="">
             <input type="password" placeholder="Password" value="">
@@ -23,7 +23,7 @@
         </form>
     </div>
 
-    <div id="post">
+    <div id="post" class="box">
         <div id="post-text">
             <form>
                 <input type="text" value="" placeholder="Please enter a text">
@@ -35,7 +35,7 @@
 
         <div id="post-image">
             <label>
-                <div>Upload Image</div>
+                <div class="button">Upload Image</div>
                 <input type="file" accept="image/*" capture="camera">
             </label>
         </div>
@@ -43,12 +43,12 @@
         <div class="split">or</div>
 
         <div id="post-camera">
-            <button>Activate Camera</button>
+            <input type="button" value="Activate Camera">
             <video autoplay></video>
         </div>
     </div>
 
     <div id="feed"></div>
-    <div id="more">More</div>
+    <div id="more" class="button">More</div>
 </body>
 </html>
