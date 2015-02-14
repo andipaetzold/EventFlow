@@ -211,4 +211,30 @@ $(function()
 
     // show more
     $("#more").click(feed.more);
+
+    // hide post div
+    $("#post").hide();
+
+    // authentification
+    $("#auth form").submit(function(e)
+    {
+        e.preventDefault();
+
+        ref.authWithPassword({
+            email   : $("input[type=text]", this).val(),
+            password: $("input[type=password]", this).val()
+        }, function(error, authData)
+        {
+            if (!error)
+            {
+                $("#auth").hide();
+                $("#post").show();
+            }
+            else
+            {
+                alert("Invalid login");
+            }
+        });
+    });
+
 });

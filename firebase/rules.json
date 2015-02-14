@@ -6,7 +6,7 @@
         },
         "feed": {
           ".read": true,
-          ".write": true,
+          ".write": "auth !== null",
 
           "$item": {
             "data": {
