@@ -9,7 +9,8 @@ var feed = (function($, undefined)
         feedContainer: null,
 
         // callbacks
-        childAdded: null
+        childAdded: null,
+        childRemoved: null
     };
 
     // config
@@ -18,6 +19,7 @@ var feed = (function($, undefined)
         $.extend(options, o);
 
         options.feedRef.on("child_added", childAdded);
+        options.feedRef.on("child_removed", childRemoved);
     };
 
     // push
@@ -87,6 +89,16 @@ var feed = (function($, undefined)
 
         // callback
         if (options.childAdded) options.childAdded(item, id, data);
+    };
+
+    var childRemoved = function(snapshot)
+    {
+        var id = snapshot.key();
+        var data = snapshot.val();
+        $("#item" + id, options.feedContainer).remove();
+
+        // callback
+        if (options.childRemoved) options.childRemoved(id, data);
     };
 
 
