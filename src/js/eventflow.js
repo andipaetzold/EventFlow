@@ -13,6 +13,9 @@ var feed = (function($, undefined)
         childRemoved: null
     };
 
+    // item count to show
+    var showCount = 5;
+
     // config
     var config = function(o)
     {
@@ -87,6 +90,9 @@ var feed = (function($, undefined)
             item.prependTo(options.feedContainer);
         }
 
+        // update visibility
+        updateVisibility();
+
         // callback
         if (options.childAdded) options.childAdded(item, id, data);
     };
@@ -101,13 +107,28 @@ var feed = (function($, undefined)
         if (options.childRemoved) options.childRemoved(id, data);
     };
 
+    // show more
+    var more = function()
+    {
+        showCount += 5;
+        updateVisibility();
+    };
+
+    // update visibility
+    var updateVisibility = function()
+    {
+        // update visibility
+        options.feedContainer.children().slice(showCount).hide();
+        options.feedContainer.children().slice(0, showCount - 1).show();
+    };
 
     // return
     return {
         config:     config,
         pushText:   pushText,
         pushImage:  pushImage,
-        uploadImage:  uploadImage
+        uploadImage:  uploadImage,
+        more: more
     };
 })(jQuery);
 
@@ -187,4 +208,7 @@ $(function()
         var data = canvas[0].toDataURL("image/jpeg", 0.5);
         feed.pushImage(data);
     });
+
+    // show more
+    $("#more").click(feed.more);
 });

@@ -120,3 +120,16 @@ div#feed {
         }
     }
 }
+
+div#more {
+    margin-left:    auto;
+    margin-right:   auto;
+    padding: 2px;
+    width: 250px;
+
+    background-color: white;
+    color: black;
+
+    cursor: pointer;
+    text-align: center;
+}
