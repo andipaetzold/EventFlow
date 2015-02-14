@@ -24,7 +24,7 @@ div#post {
 
     background-color: gray;
 
-    width:     800px;
+    width:     720px;
     max-width: 70%;
 
     border: solid thin white;
@@ -41,6 +41,8 @@ div#post {
 
             &[type=text] {
                 height: 30px;
+
+                text-align: center;
             }
 
             &[type=submit] {
