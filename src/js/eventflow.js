@@ -132,6 +132,53 @@ var feed = (function($, undefined)
     };
 })(jQuery);
 
+// auth
+var auth = (function($, undefined)
+{
+    var options = {
+        ref: null,
+
+        login:  null,
+        logout: null
+    };
+
+    // config
+    var config = function(o)
+    {
+        $.extend(options, o);
+
+        options.ref.onAuth(function(authData)
+        {
+            (authData ? options.login : options.logout)();
+        });
+    };
+
+    // login
+    var login = function(email, password)
+    {
+        options.ref.authWithPassword({
+            email: email,
+            password: password
+        }, function(error)
+        {
+            if (error) alert("Invalid Login");
+        });
+    };
+
+    // logout
+    var logout = function()
+    {
+        options.ref.unauth();
+    };
+
+    return {
+        config: config,
+
+        login:  login,
+        logout: logout
+    };
+})(jQuery);
+
 // on ready
 $(function()
 {
@@ -212,29 +259,38 @@ $(function()
     // show more
     $("#more").click(feed.more);
 
-    // hide post div
-    $("#post").hide();
-
     // authentification
-    $("#auth form").submit(function(e)
+    auth.config({
+        ref: ref,
+
+        login: function()
+        {
+            $("#logout").show();
+            $("#post").show();
+            $("#login").hide();
+
+            $("#login input[type=text], #logout input[type=password]").val("");
+        },
+        logout: function()
+        {
+            $("#logout").hide();
+            $("#post").hide();
+            $("#login").show();
+        }
+    });
+
+    // login
+    $("#login form").submit(function(e)
     {
         e.preventDefault();
 
-        ref.authWithPassword({
-            email   : $("input[type=text]", this).val(),
-            password: $("input[type=password]", this).val()
-        }, function(error, authData)
-        {
-            if (!error)
-            {
-                $("#auth").hide();
-                $("#post").show();
-            }
-            else
-            {
-                alert("Invalid login");
-            }
-        });
+        auth.login($("input[type=text]", this).val(), $("input[type=password]", this).val());
+    });
+
+    // login
+    $("#logout input[type=button]").click(function()
+    {
+        auth.logout();
     });
 
 });
