@@ -1,3 +1,5 @@
+var UPLOADCARE_PUBLIC_KEY = "8b5b4f0679e1d28fcb7e";
+
 $(function()
 {
     var ref = new Firebase("https://scorching-fire-2873.firebaseio.com");
@@ -45,5 +47,25 @@ $(function()
         textBox.val("");
 
         return false;
+    });
+
+    // post event - image
+
+    $("#post-image input[type=file]").change(function()
+    {
+        if(this.files.length == 1)
+        {
+            var file = uploadcare.fileFrom("object", this.files[0]);
+            file.done(function(file)
+            {
+                if (file.isImage)
+                {
+                    ref.child("feed").push({data: file.originalUrl, type: "image", timestamp: Firebase.ServerValue.TIMESTAMP});
+                }
+            }).progress(function(upload)
+            {
+                console.log(upload.progress);
+            });
+        }
     });
 });

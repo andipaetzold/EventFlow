@@ -32,4 +32,15 @@ div#feed {
 
 div#post {
     text-align: center;
+
+    div#post-image {
+        label {
+            color: white;
+            cursor: pointer;
+
+            input[type=file] {
+                display: none;
+            }
+        }
+    }
 }
