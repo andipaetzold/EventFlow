@@ -54,7 +54,7 @@ var feed = (function($, uc, undefined)
             }
 
             // callback
-            if (callbackUploaded(file));
+            if (callbackUploaded) callbackUploaded(file);
         }).progress(function(upload)
         {
             // callback
