@@ -68,7 +68,7 @@ var feed = (function($, uc, undefined)
         id   = snapshot.key();
         data = snapshot.val();
 
-        item = $("<div></div>");
+        item = $("<div></div>", {id: "item" + id});
         switch(data.type)
         {
             case "image":
@@ -79,7 +79,16 @@ var feed = (function($, uc, undefined)
                 break;
         }
 
-        options.feedContainer.prepend(item);
+        // insert
+        prev = $("#item" + prev, options.feedContainer);
+        if (prev.length == 1)
+        {
+            item.insertBefore(prev);
+        }
+        else
+        {
+            item.prependTo(options.feedContainer);
+        }
 
         // callback
         if (options.childAdded) options.childAdded(item, id, data);
