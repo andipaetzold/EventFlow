@@ -76,6 +76,15 @@ div#post {
         }
     }
 
+    div#post-camera {
+        video {
+            width: 100%;
+            border: 1px solid black;
+
+            cursor: pointer;
+        }
+    }
+
     div.split {
         color: white;
 

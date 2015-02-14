@@ -42,11 +42,17 @@ var feed = (function($, undefined)
     };
 
     // push - image
-    var pushImage = function(file, callbackPushed)
+    var pushImage = function(data, callback)
+    {
+        push(data, "image", callback);
+    };
+
+    // upload image
+    var uploadImage = function(file, callbackPushed)
     {
         var reader = new FileReader();
         reader.onload = function(e) {
-            push(reader.result, "image", callbackPushed);
+            pushImage(reader.result, "image", callbackPushed);
         }
         reader.readAsDataURL(file);
     };
@@ -88,7 +94,8 @@ var feed = (function($, undefined)
     return {
         config:     config,
         pushText:   pushText,
-        pushImage:  pushImage
+        pushImage:  pushImage,
+        uploadImage:  uploadImage
     };
 })(jQuery);
 
@@ -127,8 +134,45 @@ $(function()
     {
         if(this.files.length == 1)
         {
-            feed.pushImage(this.files[0]);
+            feed.uploadImage(this.files[0]);
         }
         $(this).replaceWith($(this).val("").clone(true));
+    });
+
+    // post event - camera
+    navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+    if (!navigator.getUserMedia)
+    {
+        $("#post-camera").prev().hide();
+        $("#post-camera").hide();
+    }
+
+    var video = $("#post-camera video").hide();
+    $("#post-camera button").click(function()
+    {
+        var that = this;
+        navigator.getUserMedia({video: true, audio: false}, function (stream)
+        {
+            $(that).hide();
+            video.show();
+            video.attr("src", window.URL.createObjectURL(stream));
+        }, function (e)
+        {
+            console.log(e);
+        });
+    });
+
+    video.click(function()
+    {
+        var height = video.height();
+        var width  = video.width();
+        var canvas = $("<canvas></canvas>");
+        canvas.attr("height", height);
+        canvas.attr("width", width);
+        canvas[0].getContext("2d").drawImage(video[0], 0, 0, width, height);
+
+        var data = canvas[0].toDataURL("image/jpeg", 0.5);
+        feed.pushImage(data);
     });
 });
