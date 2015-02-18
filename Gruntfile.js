@@ -6,7 +6,7 @@ module.exports = function(grunt)
             dest:   "src/css/style.min.css"
         },
         js: {
-            src:    "src/js/eventflow.js",
+            src:    "src/js/*.js",
             dest:   "src/js/eventflow.min.js"
         }
     };
@@ -46,7 +46,7 @@ module.exports = function(grunt)
             }
         },
 
-        copy: {
+        concat: {
             dist: {
                 src:    files.js.src,
                 dest:   files.js.dest
@@ -72,13 +72,13 @@ module.exports = function(grunt)
 
     grunt.loadNpmTasks("grunt-autoprefixer");
     grunt.loadNpmTasks("grunt-contrib-clean");
-    grunt.loadNpmTasks("grunt-contrib-copy");
+    grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-sass");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-watch");
 
-    grunt.registerTask("dev", ["clean", "sass", "autoprefixer", "copy"]);
+    grunt.registerTask("dev", ["clean", "sass", "autoprefixer", "concat"]);
     grunt.registerTask("prod", ["dev", "cssmin", "uglify"]);
     grunt.registerTask("default", "watch");
 };
