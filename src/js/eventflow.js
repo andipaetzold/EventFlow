@@ -8,6 +8,10 @@ var feed = (function($, undefined)
         feedRef: null,
         feedContainer: null,
 
+        // cloudinary
+        cloudinary_cloud_name: "",
+        cloudinary_preset: null,
+
         // callbacks
         childAdded: null,
         childRemoved: null
@@ -55,11 +59,21 @@ var feed = (function($, undefined)
     // upload image
     var uploadImage = function(file, callbackPushed)
     {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            pushImage(reader.result, "image", callbackPushed);
-        }
-        reader.readAsDataURL(file);
+        var data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", options.cloudinary_preset);
+
+        $.ajax("https://api.cloudinary.com/v1_1/" + options.cloudinary_cloud_name + "/image/upload", {
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: "POST",
+            success: function(response)
+            {
+                pushImage(response.secure_url, callbackPushed);
+            }
+        });
     };
 
     // update feed
@@ -182,7 +196,13 @@ var auth = (function($, undefined)
 // on ready
 $(function()
 {
-    feed.config({feedRef: ref.child("feed"), feedContainer: $("#feed")});
+    feed.config({
+        feedRef: ref.child("feed"),
+        feedContainer: $("#feed"),
+
+        cloudinary_cloud_name: "andipaetzold",
+        cloudinary_preset: "eventflow"
+    });
 
     // load options
     ref.child("options").on("value", function(options)
