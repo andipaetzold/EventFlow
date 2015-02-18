@@ -1,1 +1,3 @@
 node_modules
+src/js/*.min.js
+src/css/*.min.css
