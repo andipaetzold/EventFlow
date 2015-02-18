@@ -6,7 +6,7 @@ module.exports = function(grunt)
             dest:   "src/css/style.min.css"
         },
         js: {
-            src:    "src/js/*.js",
+            src:    ["src/js/*.js", "!src/js/*.min.js"],
             dest:   "src/js/eventflow.min.js"
         }
     };
