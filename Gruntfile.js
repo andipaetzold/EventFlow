@@ -41,7 +41,7 @@ module.exports = function(grunt)
         /* JavaScript */
         uglify: {
             dist: {
-                src:    files.js.src,
+                src:    files.js.dest,
                 dest:   files.js.dest
             }
         },
