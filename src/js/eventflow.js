@@ -229,13 +229,16 @@ $(function()
     }
 
     var video = $("#post-camera video").hide();
-    $("#post-camera input[type=button]").click(function()
+    $("#camera-activate").click(function()
     {
         var that = this;
         navigator.getUserMedia({video: true, audio: false}, function (stream)
         {
+            // show / hide
             $(that).hide();
             video.show();
+            $("#interval").show();
+
             video.attr("src", window.URL.createObjectURL(stream));
         }, function (e)
         {
@@ -243,7 +246,9 @@ $(function()
         });
     });
 
-    video.click(function()
+    video.click(camaraPhoto);
+
+    var camaraPhoto = function()
     {
         var height = video.height();
         var width  = video.width();
@@ -254,7 +259,7 @@ $(function()
 
         var data = canvas[0].toDataURL("image/jpeg", 0.5);
         feed.pushImage(data);
-    });
+    };
 
     // show more
     $("#more").click(feed.more);
@@ -293,4 +298,50 @@ $(function()
         auth.logout();
     });
 
+    // interval
+    $("#interval-countdown").hide();
+    $("#interval").hide();
+
+    var interval = null;
+
+    $("#interval-toggle").click(function()
+    {
+        if (!interval)
+        {
+            // show / hide
+            $(this).val("Stop");
+            $("#interval-time").hide();
+            $("#interval-countdown").show();
+
+            // countdown
+            $("#interval-countdown")
+                .val(0)
+                .attr("max", $("#interval-time").val());
+
+            // interval
+            clearInterval(interval);
+            interval = setInterval(function()
+            {
+                var ic = $("#interval-countdown");
+                ic.val(ic.val() + 0.1);
+
+                if (ic.val() == ic.attr("max"))
+                {
+                    ic.val(0);
+                    camaraPhoto();
+                }
+            }, 100);
+
+        }
+        else
+        {
+            clearInterval(interval);
+            interval = null;
+            // show / hide
+            $(this).val("Start");
+            $("#interval-time").show();
+            $("#interval-countdown").hide();
+
+        }
+    });
 });
