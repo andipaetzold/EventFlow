@@ -42,11 +42,15 @@ $(function()
     // post event - image
     $("#post-image input[type=file]").change(function()
     {
-        if(this.files.length == 1)
+        if(this.files.length >= 1)
         {
-            feed.uploadImage(this.files[0]);
+            $.each(this.files, function(index, file)
+            {
+                feed.uploadImage(file);
+            });
+
+            $(this).replaceWith($(this).val("").clone(true));
         }
-        $(this).replaceWith($(this).val("").clone(true));
     });
 
     // post event - camera
