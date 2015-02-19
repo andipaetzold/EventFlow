@@ -83,8 +83,11 @@ $(function()
 
     var camaraPhoto = function()
     {
-        var height = video.height();
-        var width  = video.width();
+        // get size
+        var height = video[0].videoHeight;
+        var width  = video[0].videoWidth;
+
+        // create canvas
         var canvas = $("<canvas></canvas>");
         canvas.attr("height", height);
         canvas.attr("width", width);
