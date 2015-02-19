@@ -29,6 +29,8 @@ var feed = (function($, undefined)
 
         options.feedRef.on("child_added", childAdded);
         options.feedRef.on("child_removed", childRemoved);
+
+        updateVisibility();
     };
 
     // push
@@ -170,7 +172,7 @@ var feed = (function($, undefined)
         options.feedContainer.children().slice(0, showCount - 1).show();
 
         // update more button
-        if ($("div", options.feedContainer).last().is(":visible"))
+        if ($("div", options.feedContainer).length <= showCount)
         {
             options.moreContainer.hide();
         }
