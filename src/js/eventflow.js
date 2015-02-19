@@ -8,6 +8,8 @@ $(function()
         feedRef: ref.child("feed"),
         feedContainer: $("#feed"),
 
+        moreContainer: $("#more"),
+
         cloudinary_cloud_name: "andipaetzold",
         cloudinary_preset: "eventflow"
     });

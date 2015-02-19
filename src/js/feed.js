@@ -4,6 +4,9 @@ var feed = (function($, undefined)
         feedRef: null,
         feedContainer: null,
 
+        // more
+        moreContainer: null,
+
         // cloudinary
         cloudinary_cloud_name: "",
         cloudinary_preset: null,
@@ -79,6 +82,7 @@ var feed = (function($, undefined)
         data = snapshot.val();
 
         item = $("<div></div>", {id: "item" + id});
+        item.attr("data-prev", prev);
         switch(data.type)
         {
             case "image":
@@ -90,10 +94,19 @@ var feed = (function($, undefined)
         }
 
         // insert
-        prev = $("#item" + prev, options.feedContainer);
-        if (prev.length == 1)
+        var prevItem = $("#item" + prev, options.feedContainer);
+        var nextItem = $("div[data-prev=" + id + "]", options.feedContainer);
+        if (prev == null)
         {
-            item.insertBefore(prev);
+            item.appendTo(options.feedContainer);
+        }
+        else if (prevItem.length == 1)
+        {
+            item.insertBefore(prevItem);
+        }
+        else if (nextItem.length == 1)
+        {
+            item.insertAfter(nextItem);
         }
         else
         {
@@ -127,9 +140,19 @@ var feed = (function($, undefined)
     // update visibility
     var updateVisibility = function()
     {
-        // update visibility
+        // update items
         options.feedContainer.children().slice(showCount).hide();
         options.feedContainer.children().slice(0, showCount - 1).show();
+
+        // update more button
+        if ($("div", options.feedContainer).last().is(":visible"))
+        {
+            options.moreContainer.hide();
+        }
+        else
+        {
+            options.moreContainer.show();
+        }
     };
 
     // return
