@@ -175,7 +175,7 @@ $(function()
         if (!interval)
         {
             // show / hide
-            $(this).val("Stop");
+            $(this).html("Stop");
             $("#interval-time").hide();
             $("#interval-countdown").show();
 
@@ -204,7 +204,7 @@ $(function()
             clearInterval(interval);
             interval = null;
             // show / hide
-            $(this).val("Start");
+            $(this).html("Start");
             $("#interval-time").show();
             $("#interval-countdown").hide();
 
