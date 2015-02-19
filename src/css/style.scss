@@ -10,7 +10,7 @@ body {
     background-color: black;
 }
 
-body, input {
+body, input, button {
     font-family: Verdana, Helvetica, Arial;
     font-size:   13px;
 }
@@ -81,23 +81,6 @@ div {
         }
     }
 
-    &#more {
-        margin-left:    auto;
-        margin-right:   auto;
-        width: 250px;
-    }
-
-    &.button {
-        padding: 2px;
-
-        background-color: white;
-        border: thin solid black;
-        color: black;
-
-        cursor: pointer;
-        text-align: center;
-    }
-
     &.box {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -109,7 +92,6 @@ div {
         border-radius: 5px;
 
         input {
-            width: 100%;
             padding: 2px;
 
             border: 1px solid black;
@@ -127,10 +109,36 @@ div {
                 color: black;
             }
         }
+
+        div.button, label.button, button, input {
+            width: 100%;
+        }
     }
 
     &.split-horizontal {
         display: flex;
         flex-direction: row;
     }
+}
+
+div.button, label.button, button {
+    display: block;
+
+
+    padding: 2px;
+
+    background-color: white;
+    border: thin solid black;
+    color: black;
+
+    cursor: pointer;
+    text-align: center;
+}
+
+#more {
+    width: 250px;
+    max-width: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
 }

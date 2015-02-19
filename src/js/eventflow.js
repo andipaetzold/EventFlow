@@ -30,9 +30,9 @@ $(function()
     });
 
     // post event - text
-    $("#post-text form").submit(function()
+    $("#post-text-form").submit(function()
     {
-        var textBox = $("input[type=text]", this);
+        var textBox = $("#post-text-text");
         feed.pushText(textBox.val());
         textBox.val("");
 
@@ -40,7 +40,7 @@ $(function()
     });
 
     // post event - image
-    $("#post-image input[type=file]").change(function()
+    $("#post-image-file").change(function()
     {
         if(this.files.length >= 1)
         {
@@ -62,8 +62,8 @@ $(function()
         $("#post-camera").hide();
     }
 
-    var video = $("#post-camera video").hide();
-    $("#camera-activate").click(function()
+    var video = $("#post-camera-video").hide();
+    $("#post-camera-activate").click(function()
     {
         var that = this;
         navigator.getUserMedia({video: true, audio: false}, function (stream)
@@ -104,11 +104,11 @@ $(function()
 
         login: function()
         {
+            $("#login").hide();
             $("#logout").show();
             $("#post").show();
-            $("#login").hide();
 
-            $("#login input[type=text], #logout input[type=password]").val("");
+            $("#login-email, #login-password").val("");
         },
         logout: function()
         {
@@ -119,16 +119,18 @@ $(function()
     });
 
     // login
-    $("#login form").submit(function(e)
+    $("#login-form").submit(function(e)
     {
         e.preventDefault();
 
-        auth.login($("input[type=text]", this).val(), $("input[type=password]", this).val());
+        auth.login($("#login-email").val(), $("#login-password").val());
     });
 
-    // login
-    $("#logout input[type=button]").click(function()
+    // logout
+    $("#logout-form").submit(function(e)
     {
+        e.preventDefault();
+
         auth.logout();
     });
 

@@ -18,41 +18,41 @@
 </head>
 <body>
     <div id="login" class="box">
-        <form>
-            <input type="text" placeholder="E-Mail" value="">
-            <input type="password" placeholder="Password" value="">
-            <input type="submit" value="Login">
+        <form id="login-form">
+            <input id="login-email" type="text" placeholder="E-Mail" value="">
+            <input id="login-password" type="password" placeholder="Password" value="">
+            <input id="login-submit" type="submit" value="Login">
         </form>
     </div>
 
     <div id="logout" class="box">
-        <input type="button" value="Logout">
+        <form id="logout-form">
+            <input id="logout-submit" type="submit" value="Logout">
+        </form>
     </div>
 
     <div id="post" class="box">
         <div id="post-text">
-            <form>
-                <input type="text" value="" placeholder="Please enter a text">
-                <input type="submit" value="Send">
+            <form id="post-text-form">
+                <input id="post-text-text" type="text" value="" placeholder="Please enter a text">
+                <input id="post-text-submit" type="submit" value="Send">
             </form>
         </div>
 
         <div class="splitter">or</div>
 
         <div id="post-image">
-            <div class="button">
-                <label>
-                    Upload Image
-                    <input type="file" accept="image/*" capture="camera" multiple>
-                </label>
-            </div>
+            <label class="button">
+                Upload Image
+                <input id="post-image-file" type="file" accept="image/*" capture="camera" multiple>
+            </label>
         </div>
 
         <div class="splitter">or</div>
 
         <div id="post-camera">
-            <input type="button" value="Activate Camera" id="camera-activate">
-            <video autoplay></video>
+            <button id="post-camera-activate">Activate Camera</button>
+            <video id="post-camera-video" autoplay></video>
 
             <div id="interval" class="split-horizontal">
                 <select id="interval-time">
@@ -72,12 +72,12 @@
                     <option value="5400">90min</option>
                 </select>
                 <progress id="interval-countdown" value="0"></progress>
-                <input id="interval-toggle" type="button" value="Start">
+                <button id="interval-toggle">Start</button>
             </div>
         </div>
     </div>
 
     <div id="feed"></div>
-    <div id="more" class="button">More</div>
+    <button id="more" class="button">More</button>
 </body>
 </html>
