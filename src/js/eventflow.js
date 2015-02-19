@@ -96,6 +96,9 @@ $(function()
         // create data url
         var dataURL = canvas[0].toDataURL("image/jpeg", 0.5);
 
+        // destroy canvas
+        canvas.remove();
+
         // url to blob
         var dataURLToBlob = function(dataURL)
         {
