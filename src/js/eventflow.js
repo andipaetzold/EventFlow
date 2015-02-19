@@ -8,6 +8,8 @@ $(function()
         feedRef: ref.child("feed"),
         feedContainer: $("#feed"),
 
+        progressContainer: $("#progress"),
+
         moreContainer: $("#more"),
 
         cloudinary_cloud_name: "andipaetzold",

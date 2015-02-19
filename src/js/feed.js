@@ -4,6 +4,9 @@ var feed = (function($, undefined)
         feedRef: null,
         feedContainer: null,
 
+        // progress
+        progressContainer: null,
+
         // more
         moreContainer: null,
 
@@ -58,10 +61,15 @@ var feed = (function($, undefined)
     // upload image
     var uploadImage = function(file, callbackPushed)
     {
+        // create form data
         var data = new FormData();
         data.append("file", file);
         data.append("upload_preset", options.cloudinary_preset);
 
+        // progress
+        var progress = $("<progress></progress>").appendTo(options.progressContainer);
+
+        // start upload
         $.ajax("https://api.cloudinary.com/v1_1/" + options.cloudinary_cloud_name + "/image/upload", {
             data: data,
             cache: false,
@@ -70,7 +78,16 @@ var feed = (function($, undefined)
             type: "POST",
             success: function(response)
             {
+                progress.remove();
                 pushImage(response.secure_url, callbackPushed);
+            },
+            progress: function(e)
+            {
+                if (e.lengthComputable)
+                {
+                    progress.attr("max", e.total);
+                    progress.attr("value", e.loaded);
+                }
             }
         });
     };
