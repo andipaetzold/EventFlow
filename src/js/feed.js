@@ -159,7 +159,6 @@ var feed = (function($, undefined)
     return {
         config:     config,
         pushText:   pushText,
-        pushImage:  pushImage,
         uploadImage:  uploadImage,
         more: more
     };
