@@ -102,7 +102,19 @@ var feed = (function($, undefined)
         });
     };
 
-    // update feed
+    // update feed - added
+    var formatTimestamp = function(timestamp)
+    {
+        var date = new Date(timestamp);
+
+        var output = "";
+        output += date.toLocaleDateString();
+        output += " ";
+        output += date.toLocaleTimeString();
+
+        return output;
+    };
+
     var childAdded = function(snapshot, prev)
     {
         id   = snapshot.key();
@@ -119,6 +131,11 @@ var feed = (function($, undefined)
                 $("<p></p>").text(data.data).appendTo(item);
                 break;
         }
+
+        // timestamp
+        $("<div></div>")
+            .html(formatTimestamp(data.timestamp))
+            .appendTo(item);
 
         // insert
         var prevItem = $("#item" + prev, options.feedContainer);
@@ -147,6 +164,7 @@ var feed = (function($, undefined)
         if (options.childAdded) options.childAdded(item, id, data);
     };
 
+    // update feed - removed
     var childRemoved = function(snapshot)
     {
         var id = snapshot.key();

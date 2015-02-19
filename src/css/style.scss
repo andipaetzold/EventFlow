@@ -75,8 +75,9 @@ div {
 
         width: 900px;
 
-        div {
+        > div {
             margin-top: 10px;
+            margin-bottom: 10px;
             text-align: center;
 
             img {
@@ -89,6 +90,19 @@ div {
 
             p {
                 color: white;
+            }
+
+
+            div {
+                text-align: right;
+
+                color: black;
+                transition: color 0.5s;
+            }
+
+            &:hover div {
+                color: darkgray;
+
             }
         }
     }
