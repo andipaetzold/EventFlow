@@ -96,7 +96,7 @@ $(function()
         canvas[0].getContext("2d").drawImage(video[0], 0, 0, width, height);
 
         // create data url
-        var dataURL = canvas[0].toDataURL("image/jpeg", 0.5);
+        var dataURL = canvas[0].toDataURL("image/jpeg", 1.0);
 
         // destroy canvas
         canvas.remove();
