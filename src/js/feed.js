@@ -79,7 +79,15 @@ var feed = (function($, undefined)
             success: function(response)
             {
                 progress.remove();
-                pushImage(response.secure_url, callbackPushed);
+
+                if (response.resource_type == "image")
+                {
+                    // build url
+                    var url = "https://res.cloudinary.com/" + options.cloudinary_cloud_name + "/image/upload/";
+                    url += "c_lfill,w_900,q_80"; // limited fill, width: 900, quality: 80
+                    url += "/" + response.public_id + "." + response.format;
+                    pushImage(url, callbackPushed);
+                }
             },
             progress: function(e)
             {
