@@ -144,10 +144,14 @@ div {
         border-radius: 5px;
 
         input {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+
             padding: 2px;
 
             border: 1px solid black;
-
+            border-radius: 0;
             &[type=text], &[type=password] {
                 height: 30px;
 
