@@ -228,4 +228,40 @@ $(function()
 
         }
     });
+
+    // drag and drop
+    $("#dropzone").hide();
+    $("body, body *").on("dragenter", function(e)
+    {
+        e.stopPropagation();
+        e.preventDefault();
+
+        $("#dropzone").show();
+    });
+
+    $("#dropzone").on("dragleave", function(e)
+    {
+        e.stopPropagation();
+        e.preventDefault();
+
+        $("#dropzone").hide();
+    }).on("dragover", function(e)
+    {
+        e.stopPropagation();
+        e.preventDefault();
+
+        e.originalEvent.dataTransfer.effectAllowed = "copy";
+        e.originalEvent.dataTransfer.dropEffect = "copy";
+    }).on("drop", function(e)
+    {
+        e.stopPropagation();
+        e.preventDefault();
+
+        $("#dropzone").hide();
+
+        $.each(e.originalEvent.dataTransfer.files, function(index, file)
+        {
+            feed.uploadImage(file);
+        });
+    });
 });
