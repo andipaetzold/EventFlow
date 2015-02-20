@@ -15,6 +15,14 @@ body, input, button {
     font-size:   13px;
 }
 
+a {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 div {
     margin-left:    auto;
     margin-right:   auto;
@@ -96,17 +104,31 @@ div {
                 text-align: justify;
             }
 
+            div.footer {
+                > * {
+                    &:nth-child(1)
+                    {
+                        float: left;
+                    }
 
-            div {
-                text-align: right;
+                    &:nth-child(2)
+                    {
+                        float: right;
+                    }
 
-                color: black;
-                transition: color 0.5s;
+                    color: black;
+                    transition: color 0.5s;
+                }
+
+                div.clear {
+                    clear: both;
+                }
             }
 
-            &:hover div {
-                color: darkgray;
-
+            &:hover div.footer {
+                > * {
+                    color: darkgray;
+                }
             }
         }
     }

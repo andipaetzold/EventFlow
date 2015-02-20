@@ -132,10 +132,35 @@ var feed = (function($, undefined)
                 break;
         }
 
-        // timestamp
-        $("<div></div>")
-            .html(formatTimestamp(data.timestamp))
+        // footer
+        var footer = $("<div></div>")
+            .addClass("footer")
             .appendTo(item);
+
+        // footer - left
+        $("<a></a>")
+            .html("Delete")
+            .attr("href", "#")
+            .attr("data-action", "delete")
+            .click(function(ref)
+            {
+                return function(e)
+                {
+                    ref.remove();
+                    return false;
+                };
+            }(snapshot.ref()))
+            .appendTo(footer);
+
+        // footer - right
+        $("<span></span>")
+            .html(formatTimestamp(data.timestamp))
+            .appendTo(footer);
+
+        // footer - clear
+        $("<div></div>")
+            .addClass("clear")
+            .appendTo(footer);
 
         // insert
         var prevItem = $("#item" + prev, options.feedContainer);
@@ -170,6 +195,9 @@ var feed = (function($, undefined)
         var id = snapshot.key();
         var data = snapshot.val();
         $("#item" + id, options.feedContainer).remove();
+
+        // update visibility
+        updateVisibility();
 
         // callback
         if (options.childRemoved) options.childRemoved(id, data);

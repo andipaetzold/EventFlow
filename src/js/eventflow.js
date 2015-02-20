@@ -13,7 +13,9 @@ $(function()
         moreContainer: $("#more"),
 
         cloudinary_cloud_name: "andipaetzold",
-        cloudinary_preset: "eventflow"
+        cloudinary_preset: "eventflow",
+
+        childAdded: childAdded
     });
 
     // load options
@@ -145,6 +147,7 @@ $(function()
             $("#login").hide();
             $("#logout").show();
             $("#post").show();
+            $("#feed div div.footer a[data-action=delete]").show();
 
             $("#login-email, #login-password").val("");
         },
@@ -153,6 +156,7 @@ $(function()
             $("#logout").hide();
             $("#post").hide();
             $("#login").show();
+            $("#feed div div.footer a[data-action=delete]").hide();
         }
     });
 
@@ -171,6 +175,12 @@ $(function()
 
         auth.logout();
     });
+
+    // childAdded
+    var childAdded = function(item)
+    {
+        (loggedIn ? item.show : item.hide)();
+    };
 
     // interval
     $("#interval-countdown").hide();
