@@ -27,7 +27,7 @@ var feed = (function($, undefined)
     {
         $.extend(options, o);
 
-        options.feedRef.on("child_added", childAdded);
+        options.feedRef.orderByChild("timestamp").on("child_added", childAdded);
         options.feedRef.on("child_removed", childRemoved);
 
         updateVisibility();
@@ -121,7 +121,6 @@ var feed = (function($, undefined)
         data = snapshot.val();
 
         item = $("<div></div>", {id: "item" + id});
-        item.attr("data-prev", prev);
         switch(data.type)
         {
             case "image":
@@ -163,24 +162,7 @@ var feed = (function($, undefined)
             .appendTo(footer);
 
         // insert
-        var prevItem = $("#item" + prev, options.feedContainer);
-        var nextItem = $("div[data-prev=" + id + "]", options.feedContainer);
-        if (prev == null)
-        {
-            item.appendTo(options.feedContainer);
-        }
-        else if (prevItem.length == 1)
-        {
-            item.insertBefore(prevItem);
-        }
-        else if (nextItem.length == 1)
-        {
-            item.insertAfter(nextItem);
-        }
-        else
-        {
-            item.prependTo(options.feedContainer);
-        }
+        item.prependTo(options.feedContainer);
 
         // update visibility
         updateVisibility();
