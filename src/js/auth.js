@@ -36,10 +36,18 @@ var auth = (function($, undefined)
         options.ref.unauth();
     };
 
+    // logged in
+    var loggedIn = function()
+    {
+        return (options.ref.getAuth());
+    };
+
     return {
         config: config,
 
         login:  login,
-        logout: logout
+        logout: logout,
+
+        loggedIn: loggedIn
     };
 })(jQuery);
