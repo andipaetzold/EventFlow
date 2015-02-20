@@ -218,13 +218,13 @@ var feed = (function($, undefined)
         options.feedContainer.children().slice(0, showCount - 1).show();
 
         // update more button
-        if ($("div", options.feedContainer).length <= showCount)
+        if ($("> div", options.feedContainer).length <= showCount)
         {
             options.moreContainer.hide();
         }
         else
         {
-            options.moreContainer.show();
+            options.moreContainer.css("display", "block");
         }
     };
 
